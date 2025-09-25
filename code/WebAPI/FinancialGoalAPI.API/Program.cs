@@ -1,13 +1,31 @@
+using FinancialGoalAPI.Application.Services;
+using FinancialGoalAPI.Core.Interfaces;
+using FinancialGoalAPI.Core;
+using FinancialGoalAPI.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+#region config da injeção de dependência
+
+// config do dbcontext do EF para usar postgre
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// registra as interfaces e as implementações concretas
+builder.Services.AddScoped<ITesouroRepository, TesouroRepository>();
+builder.Services.AddScoped<ISimulacaoService, SimulacaoService>();
+
+#endregion
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAnyOrigin", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -15,30 +33,27 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowAnyOrigin");
 
-var summaries = new[]
+// endpoint
+app.MapPost("/simular", async (ParametrosSimulacao parametros, ISimulacaoService service) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    if (parametros.MetaValor <= 0 || parametros.AporteMensal < 0 || parametros.AporteInicial < 0)
+    {
+        return Results.BadRequest("Valores de meta, aporte inicial e mensal devem ser positivos.");
+    }
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
+    try
+    {
+        var resultado = await service.Simular(parametros);
+        return Results.Ok(resultado);
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem(title: "Ocorreu um erro ao processar a simulação.", detail: ex.Message, statusCode: 500);
+    }
 })
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+.WithName("SimularInvestimento")
+.WithTags("Simulação");
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

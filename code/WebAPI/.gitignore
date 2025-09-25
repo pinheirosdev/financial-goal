@@ -1,0 +1,59 @@
+## Arquivos específicos do sistema operacional
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+## Arquivos de IDE e editores
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Rider
+.idea/
+
+## Arquivos gerados pelo .NET
+obj/
+bin/
+
+# Outros arquivos de build
+*.pdb
+*.exe
+*.dll
+*.aps
+*.userprefs
+
+## Arquivos de configuração e segredos
+appsettings.Development.json
+secrets.json
+*.secrets.json
+
+# Arquivos de usuário do Entity Framework
+*.dbmdl
+efpt.config.json
+
+## Arquivos de publicação (Publish)
+Properties/PublishProfiles/
+*.pubxml
+*.publish.xml
+
+## Logs e arquivos temporários
+*.log
+*.log.*
+*.tmp
+*.bak
+*.swp
+
+## Testes
+*.nupkg
+*.testsettings
+TestResults/
