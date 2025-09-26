@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancialGoal.Infrastructur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancialGoal.API", "FinancialGoal.API\FinancialGoal.API.csproj", "{513E8086-22FA-40B6-995B-D863016FFE38}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialGoal.Worker", "..\Worker\FinancialGoal.Worker\FinancialGoal.Worker.csproj", "{095CBFC6-49B8-4D7F-B0FC-3424ED004214}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{513E8086-22FA-40B6-995B-D863016FFE38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{513E8086-22FA-40B6-995B-D863016FFE38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{513E8086-22FA-40B6-995B-D863016FFE38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{095CBFC6-49B8-4D7F-B0FC-3424ED004214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{095CBFC6-49B8-4D7F-B0FC-3424ED004214}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{095CBFC6-49B8-4D7F-B0FC-3424ED004214}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{095CBFC6-49B8-4D7F-B0FC-3424ED004214}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
