@@ -1,9 +1,6 @@
-# Variável para o endereço da sua API local. 
-# Verifique no seu terminal qual a porta HTTPS correta quando você roda o projeto (geralmente na faixa 7000).
 @FinancialGoal.API_HostAddress = https://localhost:7243
 
-# Requisição para simular um investimento
-# Para executar: clique no pequeno botão verde "Send Request" que aparece acima desta linha.
+# requisição para simular um investimento
 POST {{FinancialGoal.API_HostAddress}}/simular
 Content-Type: application/json
 
